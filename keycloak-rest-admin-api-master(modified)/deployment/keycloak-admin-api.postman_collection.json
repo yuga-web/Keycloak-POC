@@ -1,0 +1,438 @@
+{
+	"info": {
+		"_postman_id": "36a0404c-13c4-46e5-9159-8ffd01d2f371",
+		"name": "keycloak-admin-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var json = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var token = jsonData.access_token;\r",
+							"    var refreshToken = jsonData.refresh_token;\r",
+							"    pm.environment.set(\"access_token\", token);\r",
+							"    pm.environment.set(\"refresh_token\", refreshToken);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "frontend",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "kerri",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "kerri",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "332e78cb-0487-46a8-949d-7c2a09cd380c",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{keycloak_url}}/auth/realms/balambgarden/protocol/openid-connect/token",
+					"host": [
+						"{{keycloak_url}}"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"balambgarden",
+						"protocol",
+						"openid-connect",
+						"token"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "api-services",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "kerri",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "kerri",
+							"disabled": true
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"disabled": true
+						},
+						{
+							"key": "client_secret",
+							"value": "332e78cb-0487-46a8-949d-7c2a09cd380c",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/keycloak/hello",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Roles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/keycloak/roles",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/keycloak/profile",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/keycloak/users",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Thanyaa\",\r\n    \"email\":\"mera@gmail.com\",\r\n    \"firstName\":\"maers\",\r\n    \"lastName\":\"sdec\",\r\n    \"password\":\"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_url}}/keycloak/adduser",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"adduser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the specific user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/keycloak/deleteuser/89bf2c63-7c6d-4878-b85a-f13beae3c585",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"deleteuser",
+						"89bf2c63-7c6d-4878-b85a-f13beae3c585"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"maytyeijs\",\r\n    \"email\":\"geron@gmail.com\",\r\n    \"lastName\":\"serto\",\r\n    \"password\":\"reyo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_url}}/keycloak/updateuser/421e741a-195a-4224-b9fb-7fcfd4f126e0",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"updateuser",
+						"421e741a-195a-4224-b9fb-7fcfd4f126e0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Roles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"app-admin\",\r\n    \"description\":\"client usage\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_url}}/keycloak/createRole",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"createRole"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete specific Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/keycloak/deleteRole/app-admin",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"deleteRole",
+						"app-admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Specific Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\":\"client\",\r\n    \"compositeRoles\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_url}}/keycloak/updateRole/app-admin",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"keycloak",
+						"updateRole",
+						"app-admin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

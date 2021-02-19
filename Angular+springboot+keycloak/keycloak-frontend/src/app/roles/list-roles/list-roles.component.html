@@ -1,0 +1,20 @@
+<button class="btn btn-outline-warning" routerLink="/updateRole/{{createRole}}"><i class="far fa-edit"></i> Add</button>
+<table class="table table-dark text-center">
+    <thead>
+        <tr>
+            <th scope="col">RoleName</th>
+            <th scope="col">Description</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let role of roles">
+            <td>{{role.name}}</td>
+            <td>{{role.description}}</td>
+
+            <td><button class="btn btn-outline-warning" routerLink="/updateRole/{{role.name}}"><i class="far fa-edit"></i> Edit</button></td>
+            <td><button class="btn btn-outline-danger" (click)="deleteRole(role.name)"><i class="far fa-trash-alt"></i> Delete</button></td>
+        </tr>
+    </tbody>
+</table>
